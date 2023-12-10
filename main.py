@@ -19,12 +19,30 @@ class Game:
 
         self.bullets = []
 
+        # Turn turret left/right when arrow keys pressed
+
+        def pressLeft():
+            self.turret.left = True
+            self.turret.right = False
+
+        def releaseLeft():
+            self.turret.left = False
+
+        def pressRight():
+            self.turret.left = False
+            self.turret.right = True
+
+        def releaseRight():
+            self.turret.right = False
+
         turtle.listen() # Listen for keypress
 
-        # Turn turret left/right when arrow keys pressed
-        turtle.onkeypress(self.turret.turnLeft, "Left")
-        turtle.onkeypress(self.turret.turnRight, "Right")
-        turtle.onkeypress(self.shoot, "space")
+        turtle.onkeypress(pressLeft, "Left")
+        turtle.onkeypress(pressRight, "Right")
+        turtle.onkeyrelease(releaseLeft, "Left")
+        turtle.onkeyrelease(releaseRight, "Right")
+
+        turtle.onkey(self.shoot, "space")
 
     def draw(self): # Render the screen in the window
         turtle.up() # Stop drawing
@@ -71,6 +89,11 @@ class Game:
             turtle.goto(-self.width / 2, self.height / 2)
             turtle.down()
             turtle.write("Score: " + str(self.score))
+
+            if self.turret.left:
+                self.turret.turnLeft()
+            elif self.turret.right:
+                self.turret.turnRight()
 
             turtle.update() # Update turtle
 
