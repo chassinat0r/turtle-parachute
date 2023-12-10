@@ -5,12 +5,14 @@ turtle.title("Parachute") # Give window title
 turtle.tracer(0, 0) # Disable auto-update
 turtle.hideturtle() # Hide the turtle
 
-# Object to create the screen the game is played in
-class Screen:
+# Object to manage the game
+class Game:
     def __init__(self, width, height):
         # Set width and height values
         self.width = width
         self.height = height
+
+        self.score = 0
 
         self.turret = Turret(0, -self.height / 2, 15) # Create turret at bottom middle of screen
 
@@ -33,20 +35,22 @@ class Screen:
             turtle.right(90)
 
     def update(self): # Update the game
-        turtle.clear() # Get rid of everything previously drawn
-        
-        self.draw() # Draw the screen
-        self.turret.draw() # Draw the turret
+        while True:
+            turtle.clear() # Get rid of everything previously drawn
+            
+            self.draw() # Draw the screen
+            self.turret.draw() # Draw the turret
 
-        turtle.update() # Update turtle
+            turtle.up()
+            turtle.goto(-self.width / 2, self.height / 2)
+            turtle.down()
+            turtle.write("Score: " + str(self.score))
 
-        # Repeat in 1 second
-        time.sleep(0.1) 
-        self.update()
+            turtle.update() # Update turtle
 
-screen = Screen(600, 400) # Create screen of size 600x400
+game = Game(600, 400) # Create screen for game of size 600x400
 
 try:
-    screen.update()
+    game.update() # Continually refresh the screen
 except turtle.Terminator: # Prevent error when closing window
     sys.exit(0) # Exit with no errors

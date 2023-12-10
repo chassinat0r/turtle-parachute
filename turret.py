@@ -9,7 +9,7 @@ class Turret:
         self.radius = radius
         self.diameter = 2 * radius
         self.angle = 0
-        
+
     def draw(self): # Draw turret
         turtle.up()
         turtle.setheading(0)
@@ -55,8 +55,8 @@ class Turret:
 
     def turnLeft(self): # Turn turret to aim left
         if self.angle > -70: # Angle of turret is more than -70 degrees
-            self.angle -= 5 # Turn turret 5 degrees to left
+            self.angle -= 2 # Turn turret 2 degrees to left
 
     def turnRight(self): # Turn turret to aim right
         if self.angle < 70: # Angle of turret is less than 70 degrees
-            self.angle += 5 # Turn turret 5 degrees to the right
+            self.angle += 2 # Turn turret 2 degrees to the right
